@@ -8,6 +8,7 @@ namespace ColdWind.Core.Editor
     {
         public const string DisplayName = "Cold Wind Core";
         public const string Name = "com.coldwind.core";
+        public const string Path = "Packages/" + Name + "/";
 
         private const int DelayRecheckingVersionRequest = 100;
 

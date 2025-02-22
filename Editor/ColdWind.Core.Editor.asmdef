@@ -1,7 +1,9 @@
 {
     "name": "ColdWind.Core.Editor",
     "rootNamespace": "ColdWind.Core.Editor",
-    "references": [],
+    "references": [
+        "GUID:319e99b28c2a2fa43b3596957e1e5553"
+    ],
     "includePlatforms": [
         "Editor"
     ],
