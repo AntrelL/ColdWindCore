@@ -1,6 +1,6 @@
 # Cold Wind Core
 
-### Version: **1.2.0**
+### Version: **1.2.1**
 
 This is a handy base containing modules to solve common Unity problems and inconveniences.
 
