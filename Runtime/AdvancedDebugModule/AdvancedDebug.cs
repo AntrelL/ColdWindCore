@@ -6,9 +6,8 @@ namespace ColdWind.Core.AdvancedDebugModule
 {
     public static class AdvancedDebug
     {
-        private const char NamespaceSeparationSymbol = '.';
-
-        private static readonly string EditorPartOfNamespace = NamespaceSeparationSymbol + "Editor"; 
+        private const string NamespaceSeparationSymbol = ".";
+        private const string EditorPartOfNamespace = NamespaceSeparationSymbol + "Editor"; 
 
         public static void Log<T>(string message, bool isModuleName = true, bool isTypeName = true) => 
             Debug.Log(CreateCompositeMessage<T>(message, isModuleName, isTypeName));
