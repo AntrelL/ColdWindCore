@@ -8,7 +8,7 @@ namespace ColdWind.Core.GeneralControlWindow.Editor
 {
     public class MainWindow : EditorWindow
     {
-        public const int MinWidth = 335;
+        public const int MinWidth = 337;
 
         private static List<Tab> s_tabs = new()
         { 
@@ -44,7 +44,7 @@ namespace ColdWind.Core.GeneralControlWindow.Editor
 
         private void OnGUI()
         {
-            GUILayoutHelper.DrawBetweenSpaces(5, 10, 
+            GUILayoutHelper.DrawBetweenSpaces(GUILayoutHelper.SmallIndent, GUILayoutHelper.StandardIndent,
                 () => GUILayoutHelper.DrawInHorizontal(() =>
                 {
                     _selectedTabIndex = GUILayout.Toolbar(_selectedTabIndex, s_tabNames);

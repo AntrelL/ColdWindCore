@@ -39,6 +39,13 @@ namespace ColdWind.Core.Editor
                 onClicked.Invoke();
         }
 
+        public static void DrawDisabled(Action contentDrawer)
+        {
+            GUI.enabled = false;
+            contentDrawer.Invoke();
+            GUI.enabled = true;
+        }
+
         public static void DrawBetweenSpaces(int pixelsForSpaces, Action contentDrawer)
         {
             DrawBetweenSpaces(pixelsForSpaces, pixelsForSpaces, contentDrawer);
