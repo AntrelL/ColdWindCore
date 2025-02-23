@@ -1,6 +1,6 @@
 {
   "name": "com.coldwind.core",
-  "version": "1.3.0",
+  "version": "1.3.3",
   "unity": "2022.3",
   "displayName": "Cold Wind Core",
   "description": "This is a handy base containing modules to solve common Unity problems and inconveniences.",

@@ -8,10 +8,13 @@ namespace ColdWind.Core.GeneralControlWindow.Editor
 {
     public class MainWindow : EditorWindow
     {
+        public const int MinWidth = 335;
+
         private static List<Tab> s_tabs = new()
         { 
             new HomeTab(),
-            new InitialSetupTab()
+            new InitialSetupTab(),
+            new ResourceControlTab()
         };
 
         private static string[] s_tabNames;

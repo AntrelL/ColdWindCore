@@ -10,6 +10,8 @@ namespace ColdWind.Core.Editor
         public const string DisplayNameInPascalCase = "ColdWindCore";
         public const string Name = "com.coldwind.core";
         public const string Path = "Packages/" + Name + "/";
+        public const string PathForDynamicData = "Assets/" + DisplayNameInPascalCase + "/";
+        public const string AssetFileExtension = ".asset";
 
         private const int DelayRecheckingVersionRequest = 100;
 

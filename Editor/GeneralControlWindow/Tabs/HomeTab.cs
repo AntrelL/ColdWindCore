@@ -7,8 +7,9 @@ namespace ColdWind.Core.GeneralControlWindow.Editor
     {
         private const string VersionLoadingText = "Loading...";
         private const string VersionErrorText = "Error";
+        private const string VersionLabelText = "Version: ";
 
-        private readonly Vector2 _windowSizeForTab = new(200, 100);
+        private readonly Vector2 _windowSizeForTab = new(MainWindow.MinWidth, 100);
 
         private string _packageVersionText;
 
@@ -29,7 +30,7 @@ namespace ColdWind.Core.GeneralControlWindow.Editor
         {
             GUILayout.FlexibleSpace();
             GUILayoutHelper.DrawHorizontallyInCenter(
-                () => GUILayout.Label("Version: " + _packageVersionText));
+                () => GUILayout.Label(VersionLabelText + _packageVersionText));
         }
 
         private async void UpdatePackageVersionText()

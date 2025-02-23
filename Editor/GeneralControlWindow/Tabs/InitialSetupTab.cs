@@ -9,8 +9,12 @@ namespace ColdWind.Core.GeneralControlWindow.Editor
     {
         private const string FolderStructureName = "Folder Structure";
         private const string FolderArchitectureGeneratorName = "Folder Architecture Generator";
+        private const string GenerateButtonName = "Generate";
+        private const string DeleteGitKeepFilesButtonName = 
+            "Delete " + FolderArchitectureGenerator.GitKeepFileName + " Files";
 
         private readonly Vector2 _windowSizeForTab = new(370, 140);
+        private readonly Rect _folderArchitectureBlockSize = new(10, 40, 350, 80);
 
         private FolderStructure _folderStructure;
 
@@ -29,42 +33,39 @@ namespace ColdWind.Core.GeneralControlWindow.Editor
 
         private void DrawFolderArchitectureBlock()
         {
-            int buttonWidth = 150;
-            int smallIndent = 5;
-            int standardIndent = 15;
-
-            int protrudingPartPixels = 10;
-
-            Rect areaRect = new(10, 40, 350, 80);
-            Rect boxRect = areaRect.ResizeWithSavingPosition(protrudingPartPixels, protrudingPartPixels);
+            Rect boxRect = _folderArchitectureBlockSize.ResizeWithSavingPosition(
+                heightChange: GUILayoutHelper.StandardIndent);
 
             GUI.Box(boxRect, string.Empty);
-            GUILayout.BeginArea(areaRect);
+            GUILayout.BeginArea(_folderArchitectureBlockSize);
 
             GUILayoutHelper.DrawHorizontallyInCenter(
                 () => GUILayout.Label(FolderArchitectureGeneratorName, EditorStyles.boldLabel));
 
-            GUILayout.Space(smallIndent);
+            GUILayout.Space(GUILayoutHelper.SmallIndent);
 
             GUILayoutHelper.DrawHorizontallyInCenter(() =>
             {
                 GUILayout.Label(FolderStructureName);
-                GUILayout.Space(smallIndent);
-                _folderStructure = (FolderStructure)EditorGUILayout.ObjectField(_folderStructure, typeof(FolderStructure), false);
+                GUILayout.Space(GUILayoutHelper.SmallIndent);
+                _folderStructure = (FolderStructure)EditorGUILayout.ObjectField(
+                    _folderStructure, typeof(FolderStructure), false);
             });
 
-            GUILayout.Space(standardIndent);
+            GUILayout.Space(GUILayoutHelper.BigIndent);
 
             GUILayoutHelper.DrawInHorizontal(
-                () => GUILayoutHelper.DrawBetweenSpaces(standardIndent, () =>
+                () => GUILayoutHelper.DrawBetweenSpaces(GUILayoutHelper.BigIndent, () =>
                 {
-                    GUILayoutHelper.DrawButton("Generate", 
-                        () => FolderArchitectureGenerator.GenerateFolderStructure(_folderStructure), width: buttonWidth);
+                    GUILayoutHelper.DrawButton(GenerateButtonName, 
+                        () => FolderArchitectureGenerator.GenerateFolderStructure(_folderStructure),
+                        width: GUILayoutHelper.StandardButtonWidth);
 
                     GUILayout.FlexibleSpace();
 
-                    GUILayoutHelper.DrawButton($"Delete {FolderArchitectureGenerator.GitKeepFileName} Files",
-                        () => FolderArchitectureGenerator.DeleteGitkeepFiles(), width: buttonWidth);
+                    GUILayoutHelper.DrawButton(DeleteGitKeepFilesButtonName,
+                        () => FolderArchitectureGenerator.DeleteGitkeepFiles(),
+                        width: GUILayoutHelper.StandardButtonWidth);
                 }));
 
             GUILayout.EndArea();

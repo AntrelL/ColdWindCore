@@ -10,7 +10,7 @@ namespace ColdWind.Core.FolderArchitectureTool.Editor
         public const string GitKeepFileName = ".gitkeep";
 
         private const string DefaultFolderStructurePath = Package.Path +
-            "Editor/FolderArchitectureTool/FolderStructures/Default.asset";
+            "Editor/FolderArchitectureTool/FolderStructures/Default" + Package.AssetFileExtension;
 
         public static FolderStructure GetDefaultFolderStructure()
         {

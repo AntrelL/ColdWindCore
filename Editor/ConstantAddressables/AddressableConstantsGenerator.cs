@@ -6,36 +6,53 @@ using UnityEditor.AddressableAssets;
 using UnityEditor.AddressableAssets.Settings;
 using UnityEditor.Build;
 using UnityEditor.Build.Reporting;
-using UnityEngine;
 
 namespace ColdWind.Core.ConstantAddressables.Editor
 {
     [InitializeOnLoad]
     public class AddressableConstantsGenerator : IPreprocessBuildWithReport
     {
+        private const string SettingsFileName = nameof(ConstantAddressablesSettings);
+
         private static readonly string s_constantAddressablesNamespace = string.Join(".",
             new string[] { nameof(ColdWind), nameof(Core), nameof(ConstantAddressables) });
 
         private static readonly string s_folderPath = 
-            $"{Application.dataPath}/{Package.DisplayNameInPascalCase}/ConstantAddressables/";
+            $"{Package.PathForDynamicData}ConstantAddressables/";
+
+        public static bool IsGenerateOnEnterPlayMode { get; private set; }
+
+        public static bool IsGenerateOnBuild { get; private set; }
 
         public int callbackOrder => 0;
 
         static AddressableConstantsGenerator()
         {
             EditorApplication.playModeStateChanged += OnPlayModeStateChanged;
+
+            var settings = SettingsFileTool.GetFile<ConstantAddressablesSettings>(s_folderPath, SettingsFileName);
+
+            IsGenerateOnEnterPlayMode = settings.IsGenerateOnEnterPlayMode;
+            IsGenerateOnBuild = settings.IsGenerateOnBuild;
         }
 
-        public void OnPreprocessBuild(BuildReport report) => UpdatePrefabsInfo();
-
-        private static void OnPlayModeStateChanged(PlayModeStateChange state)
+        public static void SetIsGenerateOnEnterPlayMode(bool value)
         {
-            if (state == PlayModeStateChange.ExitingEditMode)
-                UpdatePrefabsInfo();
+            SettingsFileTool.EditFile<ConstantAddressablesSettings>(s_folderPath, SettingsFileName, 
+                (settings) => settings.IsGenerateOnEnterPlayMode = value);
+
+            IsGenerateOnEnterPlayMode = value;
         }
 
-        [MenuItem("Tools/Constant Addressables/Update Info")]
-        private static void UpdatePrefabsInfo()
+        public static void SetIsGenerateOnBuild(bool value)
+        {
+            SettingsFileTool.EditFile<ConstantAddressablesSettings>(s_folderPath, SettingsFileName,
+                (settings) => settings.IsGenerateOnBuild = value);
+
+            IsGenerateOnBuild = value;
+        }
+
+        public static void Generate()
         {
             AddressableAssetSettings settings = AddressableAssetSettingsDefaultObject.Settings;
 
@@ -52,6 +69,18 @@ namespace ColdWind.Core.ConstantAddressables.Editor
             AddressableLabelGenerator.Generate(settings, s_constantAddressablesNamespace, s_folderPath);
 
             AssetDatabase.Refresh();
+        }
+
+        public void OnPreprocessBuild(BuildReport report)
+        {
+            if (IsGenerateOnBuild)
+                Generate();
+        }
+
+        private static void OnPlayModeStateChanged(PlayModeStateChange state)
+        {
+            if (IsGenerateOnEnterPlayMode && state == PlayModeStateChange.ExitingEditMode)
+                Generate();
         }
     }
 }
