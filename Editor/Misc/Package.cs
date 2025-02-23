@@ -7,6 +7,7 @@ namespace ColdWind.Core.Editor
     public class Package
     {
         public const string DisplayName = "Cold Wind Core";
+        public const string DisplayNameInPascalCase = "ColdWindCore";
         public const string Name = "com.coldwind.core";
         public const string Path = "Packages/" + Name + "/";
 

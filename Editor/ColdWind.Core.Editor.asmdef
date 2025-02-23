@@ -2,7 +2,8 @@
     "name": "ColdWind.Core.Editor",
     "rootNamespace": "ColdWind.Core.Editor",
     "references": [
-        "GUID:319e99b28c2a2fa43b3596957e1e5553"
+        "GUID:319e99b28c2a2fa43b3596957e1e5553",
+        "GUID:69448af7b92c7f342b298e06a37122aa"
     ],
     "includePlatforms": [
         "Editor"
