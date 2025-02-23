@@ -8,28 +8,51 @@ namespace ColdWind.Core.GeneralControlWindow.Editor
 {
     public class MainWindow : EditorWindow
     {
-        private static List<Tab> Tabs = new()
+        private static List<Tab> s_tabs = new()
         { 
-            new HomeTab()
+            new HomeTab(),
+            new InitialSetupTab()
         };
 
-        private static string[] _tabNames;
+        private static string[] s_tabNames;
+        private static MainWindow s_window;
 
         private int _selectedTabIndex = 0;
+        private int _lastSelectedTabIndex = -1;
+
+        public static void SetSize(int width, int height) => SetSize(new Vector2(width, height));
+
+        public static void SetSize(Vector2 size) => SetSize(size, size);
+
+        public static void SetSize(Vector2 min, Vector2 max)
+        {
+            s_window.minSize = min;
+            s_window.maxSize = max;
+        }
 
         [MenuItem("Window/" + Package.DisplayName)]
         private static void ShowWindow()
         {
-            GetWindow<MainWindow>(Package.DisplayName);
+            s_window = GetWindow<MainWindow>(Package.DisplayName);
 
-            Tabs.ForEach(tab => tab.Initialize());
-            _tabNames = Tabs.Select(tab => tab.Name).ToArray();
+            s_tabs.ForEach(tab => tab.Initialize());
+            s_tabNames = s_tabs.Select(tab => tab.Name).ToArray();
         }
 
         private void OnGUI()
         {
-            _selectedTabIndex = GUILayout.Toolbar(_selectedTabIndex, _tabNames);
-            Tabs[_selectedTabIndex].Draw();
+            GUILayoutHelper.DrawBetweenSpaces(5, 10, 
+                () => GUILayoutHelper.DrawInHorizontal(() =>
+                {
+                    _selectedTabIndex = GUILayout.Toolbar(_selectedTabIndex, s_tabNames);
+                    GUILayout.FlexibleSpace();
+                }));
+
+            if (_selectedTabIndex != _lastSelectedTabIndex)
+                s_tabs[_selectedTabIndex].Open();
+
+            s_tabs[_selectedTabIndex].Draw();
+            _lastSelectedTabIndex = _selectedTabIndex;
         }
     }
 }

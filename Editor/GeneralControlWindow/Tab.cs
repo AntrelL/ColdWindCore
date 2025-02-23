@@ -7,5 +7,7 @@ namespace ColdWind.Core.GeneralControlWindow.Editor
         public abstract void Draw();
 
         public virtual void Initialize() { }
+
+        public virtual void Open() { }
     }
 }

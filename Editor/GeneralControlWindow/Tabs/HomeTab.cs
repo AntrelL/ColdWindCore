@@ -8,6 +8,8 @@ namespace ColdWind.Core.GeneralControlWindow.Editor
         private const string VersionLoadingText = "Loading...";
         private const string VersionErrorText = "Error";
 
+        private readonly Vector2 _windowSizeForTab = new(200, 100);
+
         private string _packageVersionText;
 
         public override string Name => "Home";
@@ -18,9 +20,16 @@ namespace ColdWind.Core.GeneralControlWindow.Editor
             UpdatePackageVersionText();
         }
 
+        public override void Open()
+        {
+            MainWindow.SetSize(_windowSizeForTab);
+        }
+
         public override void Draw()
         {
-            GUILayout.Label("Version: " + _packageVersionText);
+            GUILayout.FlexibleSpace();
+            GUILayoutHelper.DrawHorizontallyInCenter(
+                () => GUILayout.Label("Version: " + _packageVersionText));
         }
 
         private async void UpdatePackageVersionText()
