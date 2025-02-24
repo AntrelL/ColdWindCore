@@ -9,8 +9,11 @@ namespace ColdWind.Core.Editor
         public const int StandardButtonWidth = 150;
 
         public const int SmallIndent = 5;
-        public const int StandardIndent = 10;
-        public const int BigIndent = 15;
+        public const int MediumIndent = 10;
+        public const int LargeIndent = 15;
+        public const int ExtraLargeIndent = 30;
+        public const int HugeIndent = 50;
+        public const int GiganticIndent = 100;
 
         private const int UnspecifiedValue = -1;
 

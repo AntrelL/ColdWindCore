@@ -12,18 +12,33 @@ namespace ColdWind.Core.GeneralControlWindow.Editor
         private const string VersionErrorText = "Error";
         private const string VersionLabelText = "Version: ";
         private const string TitleTextModules = "Modules";
+        private const string TitleTextAuxiliaryTools = "AuxiliaryTools";
 
         private const int NumberOfModuleColumns = 3;
+        private const int NumberOfAuxiliaryToolsColumns = 2;
 
-        private readonly Vector2 _windowSizeForTab = new(MainWindow.MinWidth, 200);
-        private readonly List<(string Name, bool State)> _moduleNames = new()
+        private readonly Vector2 _windowSizeForTab = new(580, 250);
+        private readonly List<(string Name, bool State)> _modules = new()
         {
-            ("Модуль 1", false),
-            ("Модуль 2", false),
-            ("Модуль 3", true),
-            ("Модуль 4", true),
-            ("Модуль 5", false),
-            ("Модуль 6", true),
+            ("General Control Window", true),
+            ("Folder Architecture Tool", true),
+            ("Advanced Debug Module", true),
+            ("Constant Addressables", true),
+            ("Serializable Interface", false),
+            ("Modular Composite Root", false),
+            ("Advanced Scene Manager", false),
+            ("Universal UI", false),
+            ("Resource Control", false),
+            ("Advanced Animations", false),
+            ("Advanced Effects", false),
+        };
+
+        private readonly List<(string Name, bool State)> _auxiliaryTools = new()
+        {
+            ("Type Extensions", true),
+            ("GUI Layout Helper", true),
+            ("File Generation Tool", true),
+            ("Settings File Tool", true)
         };
 
         private string _packageVersionText;
@@ -43,23 +58,43 @@ namespace ColdWind.Core.GeneralControlWindow.Editor
 
         public override void Draw()
         {
-            GUILayoutHelper.DrawHorizontallyInCenter(
-                () => GUILayout.Label(TitleTextModules, EditorStyles.boldLabel));
+            DrawNamedComponentTable(TitleTextModules, NumberOfModuleColumns, _modules);
 
-            GUILayout.Space(GUILayoutHelper.SmallIndent);
-            GUILayoutHelper.DrawHorizontallyInCenter(() => DrawTableOfModules());
+            GUILayout.Space(GUILayoutHelper.LargeIndent);
+
+            DrawNamedComponentTable(TitleTextAuxiliaryTools, NumberOfAuxiliaryToolsColumns,
+                _auxiliaryTools, GUILayoutHelper.GiganticIndent + GUILayoutHelper.LargeIndent);
 
             GUILayout.FlexibleSpace();
             GUILayoutHelper.DrawHorizontallyInCenter(
                 () => GUILayout.Label(VersionLabelText + _packageVersionText));
         }
 
-        private void DrawTableOfModules()
+        private void DrawNamedComponentTable(
+            string name, int numberOfColumns, List<(string Name, bool State)> components, int sideIndents = 0)
         {
-            int numberOfElementsInColumn = _moduleNames.Count / NumberOfModuleColumns;
-            int numberOfRemainingModules = _moduleNames.Count % NumberOfModuleColumns;
+            GUILayoutHelper.DrawHorizontallyInCenter(
+                () => GUILayout.Label(name, EditorStyles.boldLabel));
 
-            for (int i = 0; i < NumberOfModuleColumns; i++)
+            GUILayout.Space(GUILayoutHelper.SmallIndent);
+
+            GUILayoutHelper.DrawHorizontallyInCenter(
+                () => DrawComponentTable(numberOfColumns, components, sideIndents));
+        }
+
+        private void DrawComponentTable(
+            int numberOfColumns, List<(string Name, bool State)> components, int sideIndents)
+        {
+            GUILayoutHelper.DrawBetweenSpaces(sideIndents, 
+                () => DrawComponentTable(numberOfColumns, components));
+        }
+
+        private void DrawComponentTable(int numberOfColumns, List<(string Name, bool State)> components)
+        {
+            int numberOfElementsInColumn = components.Count / numberOfColumns;
+            int numberOfRemainingModules = components.Count % numberOfColumns;
+
+            for (int i = 0; i < numberOfColumns; i++)
             {
                 GUILayoutHelper.DrawInVertical(() =>
                 {
@@ -75,16 +110,16 @@ namespace ColdWind.Core.GeneralControlWindow.Editor
                     {
                         GUILayoutHelper.DrawInHorizontal(() =>
                         {
-                            GUILayout.Label(_moduleNames[j].Name);
-
+                            GUILayout.Label(components[j].Name);
+                            GUILayout.FlexibleSpace();
                             GUILayoutHelper.DrawDisabled(
-                                () => GUILayout.Toggle(_moduleNames[j].State, string.Empty));
+                                () => GUILayout.Toggle(components[j].State, string.Empty));
                         });
                     }
                 });
 
-                if (i != NumberOfModuleColumns - 1)
-                    GUILayout.Space(GUILayoutHelper.StandardIndent);
+                if (i != numberOfColumns - 1)
+                    GUILayout.Space(GUILayoutHelper.LargeIndent);
             }
         }
 

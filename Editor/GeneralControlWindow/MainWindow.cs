@@ -44,7 +44,7 @@ namespace ColdWind.Core.GeneralControlWindow.Editor
 
         private void OnGUI()
         {
-            GUILayoutHelper.DrawBetweenSpaces(GUILayoutHelper.SmallIndent, GUILayoutHelper.StandardIndent,
+            GUILayoutHelper.DrawBetweenSpaces(GUILayoutHelper.SmallIndent, GUILayoutHelper.MediumIndent,
                 () => GUILayoutHelper.DrawInHorizontal(() =>
                 {
                     _selectedTabIndex = GUILayout.Toolbar(_selectedTabIndex, s_tabNames);

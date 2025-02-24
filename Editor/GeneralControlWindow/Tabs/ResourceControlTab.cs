@@ -36,7 +36,7 @@ namespace ColdWind.Core.GeneralControlWindow.Editor
         private void DrawConstantAddressablesBlock()
         {
             Rect boxRect = _constantAddressablesBlockSize.ResizeWithSavingPosition(
-                GUILayoutHelper.StandardIndent, GUILayoutHelper.StandardIndent);
+                GUILayoutHelper.MediumIndent, GUILayoutHelper.MediumIndent);
 
             GUI.Box(boxRect, string.Empty);
             GUILayout.BeginArea(_constantAddressablesBlockSize);
@@ -44,7 +44,7 @@ namespace ColdWind.Core.GeneralControlWindow.Editor
             GUILayoutHelper.DrawHorizontallyInCenter(
                 () => GUILayout.Label(ConstantAddressablesGenerator, EditorStyles.boldLabel));
 
-            GUILayout.Space(GUILayoutHelper.StandardIndent);
+            GUILayout.Space(GUILayoutHelper.MediumIndent);
 
             GUILayoutHelper.DrawInHorizontal(
                 () => GUILayoutHelper.DrawBetweenFlexibleSpaces(() =>
@@ -53,7 +53,7 @@ namespace ColdWind.Core.GeneralControlWindow.Editor
                         () => AddressableConstantsGenerator.Generate(),
                         width: GUILayoutHelper.StandardButtonWidth);
 
-                    GUILayout.Space(GUILayoutHelper.BigIndent);
+                    GUILayout.Space(GUILayoutHelper.LargeIndent);
 
 
                     GUILayoutHelper.DrawInVertical(() =>

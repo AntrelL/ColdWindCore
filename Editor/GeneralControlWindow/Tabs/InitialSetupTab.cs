@@ -34,7 +34,7 @@ namespace ColdWind.Core.GeneralControlWindow.Editor
         private void DrawFolderArchitectureBlock()
         {
             Rect boxRect = _folderArchitectureBlockSize.ResizeWithSavingPosition(
-                heightChange: GUILayoutHelper.StandardIndent);
+                heightChange: GUILayoutHelper.MediumIndent);
 
             GUI.Box(boxRect, string.Empty);
             GUILayout.BeginArea(_folderArchitectureBlockSize);
@@ -52,10 +52,10 @@ namespace ColdWind.Core.GeneralControlWindow.Editor
                     _folderStructure, typeof(FolderStructure), false);
             });
 
-            GUILayout.Space(GUILayoutHelper.BigIndent);
+            GUILayout.Space(GUILayoutHelper.LargeIndent);
 
             GUILayoutHelper.DrawInHorizontal(
-                () => GUILayoutHelper.DrawBetweenSpaces(GUILayoutHelper.BigIndent, () =>
+                () => GUILayoutHelper.DrawBetweenSpaces(GUILayoutHelper.LargeIndent, () =>
                 {
                     GUILayoutHelper.DrawButton(GenerateButtonName, 
                         () => FolderArchitectureGenerator.GenerateFolderStructure(_folderStructure),
