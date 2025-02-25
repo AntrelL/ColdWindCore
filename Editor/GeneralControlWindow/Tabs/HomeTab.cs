@@ -1,4 +1,5 @@
 using ColdWind.Core.Editor;
+using ColdWind.Core.GUIHelpers.Editor;
 using System;
 using System.Collections.Generic;
 using UnityEditor;
@@ -17,17 +18,18 @@ namespace ColdWind.Core.GeneralControlWindow.Editor
         private const int NumberOfModuleColumns = 3;
         private const int NumberOfAuxiliaryToolsColumns = 2;
 
-        private readonly Vector2 _windowSizeForTab = new(580, 250);
+        private readonly Vector2 _windowSizeForTab = new(580, 260);
         private readonly List<(string Name, bool State)> _modules = new()
         {
             ("General Control Window", true),
             ("Folder Architecture Tool", true),
             ("Advanced Debug Module", true),
             ("Constant Addressables", true),
-            ("Serializable Interface", false),
+            ("Serializable Interface", true),
             ("Modular Composite Root", false),
             ("Advanced Scene Manager", false),
             ("Universal UI", false),
+            ("GUI Helpers", true),
             ("Resource Control", false),
             ("Advanced Animations", false),
             ("Advanced Effects", false),
@@ -36,7 +38,7 @@ namespace ColdWind.Core.GeneralControlWindow.Editor
         private readonly List<(string Name, bool State)> _auxiliaryTools = new()
         {
             ("Type Extensions", true),
-            ("GUI Layout Helper", true),
+            ("Package Info", true),
             ("File Generation Tool", true),
             ("Settings File Tool", true)
         };
@@ -76,7 +78,7 @@ namespace ColdWind.Core.GeneralControlWindow.Editor
             GUILayoutHelper.DrawHorizontallyInCenter(
                 () => GUILayout.Label(name, EditorStyles.boldLabel));
 
-            GUILayout.Space(GUILayoutHelper.SmallIndent);
+            GUILayout.Space(GUILayoutHelper.SmallIndent + GUILayoutHelper.TinyIndent);
 
             GUILayoutHelper.DrawHorizontallyInCenter(
                 () => DrawComponentTable(numberOfColumns, components, sideIndents));
@@ -112,7 +114,7 @@ namespace ColdWind.Core.GeneralControlWindow.Editor
                         {
                             GUILayout.Label(components[j].Name);
                             GUILayout.FlexibleSpace();
-                            GUILayoutHelper.DrawDisabled(
+                            GUIHelper.DrawDisabled(
                                 () => GUILayout.Toggle(components[j].State, string.Empty));
                         });
                     }

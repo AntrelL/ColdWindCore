@@ -2,12 +2,13 @@ using System;
 using System.Collections.Generic;
 using UnityEngine;
 
-namespace ColdWind.Core.Editor
+namespace ColdWind.Core.GUIHelpers.Editor
 {
     public static class GUILayoutHelper
     {
         public const int StandardButtonWidth = 150;
 
+        public const int TinyIndent = 2;
         public const int SmallIndent = 5;
         public const int MediumIndent = 10;
         public const int LargeIndent = 15;
@@ -40,13 +41,6 @@ namespace ColdWind.Core.Editor
 
             if (GUILayout.Button(text, options.ToArray()))
                 onClicked.Invoke();
-        }
-
-        public static void DrawDisabled(Action contentDrawer)
-        {
-            GUI.enabled = false;
-            contentDrawer.Invoke();
-            GUI.enabled = true;
         }
 
         public static void DrawBetweenSpaces(int pixelsForSpaces, Action contentDrawer)
