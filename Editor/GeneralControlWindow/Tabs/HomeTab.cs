@@ -26,7 +26,7 @@ namespace ColdWind.Core.GeneralControlWindow.Editor
             ("Advanced Debug Module", true),
             ("Constant Addressables", true),
             ("Serializable Interface", true),
-            ("Modular Composite Root", false),
+            ("Modular Composite Root", true),
             ("Advanced Scene Manager", false),
             ("Universal UI", false),
             ("GUI Helpers", true),

@@ -13,5 +13,11 @@ namespace ColdWind.Core.GUIHelpers.Editor
             contentDrawer.Invoke();
             EditorGUI.EndProperty();
         }
+
+        public static void DrawSpaces(int count)
+        {
+            for (int i = 0; i < count; i++)
+                EditorGUILayout.Space();
+        }
     }
 }
