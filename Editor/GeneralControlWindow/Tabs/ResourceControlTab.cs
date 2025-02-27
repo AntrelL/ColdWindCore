@@ -50,7 +50,11 @@ namespace ColdWind.Core.GeneralControlWindow.Editor
                 () => GUILayoutHelper.DrawBetweenFlexibleSpaces(() =>
                 {
                     GUILayoutHelper.DrawButton(GenerateButtonName,
-                        () => AddressableConstantsGenerator.Generate(),
+                        () => 
+                        {
+                            MainWindow.Exit();
+                            AddressableConstantsGenerator.Generate();
+                        },
                         width: GUILayoutHelper.StandardButtonWidth);
 
                     GUILayout.Space(GUILayoutHelper.LargeIndent);

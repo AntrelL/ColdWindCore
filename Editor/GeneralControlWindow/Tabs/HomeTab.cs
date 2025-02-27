@@ -31,6 +31,8 @@ namespace ColdWind.Core.GeneralControlWindow.Editor
             ("Universal UI", false),
             ("GUI Helpers", true),
             ("Resource Control", false),
+            ("Game Object Control", true),
+            ("Advanced Sounds", false),
             ("Advanced Animations", false),
             ("Advanced Effects", false),
         };

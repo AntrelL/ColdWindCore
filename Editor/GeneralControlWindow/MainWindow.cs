@@ -1,5 +1,6 @@
 using ColdWind.Core.Editor;
 using ColdWind.Core.GUIHelpers.Editor;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using UnityEditor;
@@ -33,6 +34,8 @@ namespace ColdWind.Core.GeneralControlWindow.Editor
             s_window.minSize = min;
             s_window.maxSize = max;
         }
+
+        public static void Exit() => s_window.Close();
 
         [MenuItem("Window/" + Package.DisplayName)]
         private static void ShowWindow()
