@@ -8,6 +8,18 @@ namespace ColdWind.Core.ModularCompositeRoot.Internal
     {
         public bool IsConstructed { get; private set; }
 
+        private bool _isUnprocessedOnEnable = false;
+
+        private void OnEnable()
+        {
+            if (IsConstructed)
+                OnActivate();
+            else
+                _isUnprocessedOnEnable = true;
+        }
+
+        private void OnDisable() => OnDeactivate();
+
         protected void OnConstructed()
         {
             if (IsConstructed)
@@ -19,6 +31,12 @@ namespace ColdWind.Core.ModularCompositeRoot.Internal
             }
 
             IsConstructed = true;
+
+            if (_isUnprocessedOnEnable)
+            {
+                OnActivate();
+                _isUnprocessedOnEnable = false;
+            }
         }
 
         protected void RunConstructorExecutor(Action constructorExecutor)
@@ -26,5 +44,9 @@ namespace ColdWind.Core.ModularCompositeRoot.Internal
             constructorExecutor.Invoke();
             OnConstructed();
         }
+
+        protected virtual void OnActivate() { }
+
+        protected virtual void OnDeactivate() { }
     }
 }
