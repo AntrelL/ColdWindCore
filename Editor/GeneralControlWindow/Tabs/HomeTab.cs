@@ -30,7 +30,7 @@ namespace ColdWind.Core.GeneralControlWindow.Editor
             ("Advanced Scene Manager", false),
             ("Universal UI", false),
             ("GUI Helpers", true),
-            ("Resource Control", false),
+            ("Resource Control Module", true),
             ("Game Object Control", true),
             ("Advanced Sounds", false),
             ("Advanced Animations", false),
