@@ -29,9 +29,14 @@ namespace ColdWind.Core.GameObjectControl
             return Addressables.InstantiateAsync(prefabName).Task;
         }
 
-        private static T LoadPrefab<T>(string prefabName)
+        private static T LoadPrefab<T>(string prefabName) where T : MonoBehaviour
         {
-            return Addressables.LoadAssetAsync<GameObject>(prefabName).WaitForCompletion().GetComponent<T>();
+            return LoadPrefab(prefabName).GetComponent<T>();
+        }
+
+        private static GameObject LoadPrefab(string prefabName)
+        {
+            return Addressables.LoadAssetAsync<GameObject>(prefabName).WaitForCompletion();
         }
     }
 }

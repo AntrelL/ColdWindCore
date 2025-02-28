@@ -46,7 +46,7 @@ namespace ColdWind.Core.GameObjectControl
             Action<GameObject> constructor = null,
             bool isActivateObject = true)
         {
-            return CreateNew(LoadPrefab<GameObject>(prefabName), creator, constructor, isActivateObject);
+            return CreateNew(LoadPrefab(prefabName), creator, constructor, isActivateObject);
         }
 
         public static T CreateNew<T>(
@@ -66,7 +66,7 @@ namespace ColdWind.Core.GameObjectControl
             bool isActivateObject = true)
         {
             return CreateNew(
-                LoadPrefab<GameObject>(prefabName),
+                LoadPrefab(prefabName),
                 (GameObject prefab) => Instantiate(prefab, instantiationParameters), 
                 constructor, 
                 isActivateObject);
