@@ -7,5 +7,7 @@ namespace ColdWind.Core.ModularCompositeRoot
         public virtual void LoadResources() { }
 
         public virtual void Construct() { }
+
+        public virtual void Deconstruct() { }
     }
 }

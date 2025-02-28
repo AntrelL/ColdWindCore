@@ -21,6 +21,12 @@ namespace ColdWind.Core.ModularCompositeRoot
             _otherGroups.ForEach(group => group.Construct());
         }
 
+        private void OnDisable()
+        {
+            Deconstruct();
+            _otherGroups.ForEach(group => group.Deconstruct());
+        }
+
         private void CheckExecutionOrder()
         {
             object[] attributes = GetType().GetCustomAttributes(typeof(DefaultExecutionOrder), false);
