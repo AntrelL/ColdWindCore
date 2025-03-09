@@ -28,13 +28,14 @@ namespace ColdWind.Core.GeneralControlWindow.Editor
             ("Serializable Interface", true),
             ("Modular Composite Root", true),
             ("Advanced Scene Manager", false),
-            ("Universal UI", false),
+            ("Universal UI", true),
             ("GUI Helpers", true),
             ("Resource Control Module", true),
             ("Game Object Control", true),
             ("Advanced Sounds", false),
             ("Advanced Animations", false),
             ("Advanced Effects", false),
+            ("Event Links", true)
         };
 
         private readonly List<(string Name, bool State)> _auxiliaryTools = new()
