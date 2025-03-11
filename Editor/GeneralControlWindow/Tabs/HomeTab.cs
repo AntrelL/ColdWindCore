@@ -16,9 +16,9 @@ namespace ColdWind.Core.GeneralControlWindow.Editor
         private const string TitleTextAuxiliaryTools = "AuxiliaryTools";
 
         private const int NumberOfModuleColumns = 3;
-        private const int NumberOfAuxiliaryToolsColumns = 2;
+        private const int NumberOfAuxiliaryToolsColumns = 3;
 
-        private readonly Vector2 _windowSizeForTab = new(580, 260);
+        private readonly Vector2 _windowSizeForTab = new(580, 270);
         private readonly List<(string Name, bool State)> _modules = new()
         {
             ("General Control Window", true),
@@ -41,6 +41,7 @@ namespace ColdWind.Core.GeneralControlWindow.Editor
         private readonly List<(string Name, bool State)> _auxiliaryTools = new()
         {
             ("Type Extensions", true),
+            ("Additional Types", true),
             ("Package Info", true),
             ("File Generation Tool", true),
             ("Settings File Tool", true)
@@ -68,7 +69,7 @@ namespace ColdWind.Core.GeneralControlWindow.Editor
             GUILayout.Space(GUILayoutHelper.LargeIndent);
 
             DrawNamedComponentTable(TitleTextAuxiliaryTools, NumberOfAuxiliaryToolsColumns,
-                _auxiliaryTools, GUILayoutHelper.GiganticIndent + GUILayoutHelper.LargeIndent);
+                _auxiliaryTools, GUILayoutHelper.HugeIndent);
 
             GUILayout.FlexibleSpace();
             GUILayoutHelper.DrawHorizontallyInCenter(
