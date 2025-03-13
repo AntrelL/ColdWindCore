@@ -26,7 +26,7 @@ namespace ColdWind.Core.GameObjectControl
             Func<GameObject, Task<GameObject>> creator = null,
             Action<T> constructor = null,
             bool isActivateObject = true)
-            where T : MonoBehaviour
+            where T : Component
         {
             T instance = (await CreateNewAsync(prefab.gameObject, creator, null, isActivateObject)).GetComponent<T>();
             constructor?.Invoke(instance);
@@ -52,7 +52,7 @@ namespace ColdWind.Core.GameObjectControl
             Func<string, Task<GameObject>> creator = null,
             Action<T> constructor = null,
             bool isActivateObject = true)
-            where T : MonoBehaviour
+            where T : Component
         {
             T instance = (await CreateNewAsync(prefabName, creator, null, isActivateObject)).GetComponent<T>();
             constructor?.Invoke(instance);
@@ -78,7 +78,7 @@ namespace ColdWind.Core.GameObjectControl
             InstantiationParameters instantiationParameters,
             Action<T> constructor = null,
             bool isActivateObject = true)
-            where T : MonoBehaviour
+            where T : Component
         {
             return await CreateNewAsync(
                 prefabName,
