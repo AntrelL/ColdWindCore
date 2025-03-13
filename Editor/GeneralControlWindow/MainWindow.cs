@@ -1,6 +1,5 @@
 using ColdWind.Core.Editor;
 using ColdWind.Core.GUIHelpers.Editor;
-using System;
 using System.Collections.Generic;
 using System.Linq;
 using UnityEditor;
@@ -25,6 +24,32 @@ namespace ColdWind.Core.GeneralControlWindow.Editor
         private int _selectedTabIndex = 0;
         private int _lastSelectedTabIndex = -1;
 
+        private void OnEnable()
+        {
+            AssemblyReloadEvents.beforeAssemblyReload += OnBeforeAssemblyReload;
+        }
+
+        private void OnDisable()
+        {
+            AssemblyReloadEvents.beforeAssemblyReload -= OnBeforeAssemblyReload;
+        }
+
+        private void OnGUI()
+        {
+            GUILayoutHelper.DrawBetweenSpaces(GUILayoutHelper.SmallIndent, GUILayoutHelper.MediumIndent,
+                () => GUILayoutHelper.DrawInHorizontal(() =>
+                {
+                    _selectedTabIndex = GUILayout.Toolbar(_selectedTabIndex, s_tabNames);
+                    GUILayout.FlexibleSpace();
+                }));
+
+            if (_selectedTabIndex != _lastSelectedTabIndex)
+                s_tabs[_selectedTabIndex].Open();
+
+            s_tabs[_selectedTabIndex].Draw();
+            _lastSelectedTabIndex = _selectedTabIndex;
+        }
+
         public static void SetSize(int width, int height) => SetSize(new Vector2(width, height));
 
         public static void SetSize(Vector2 size) => SetSize(size, size);
@@ -46,20 +71,6 @@ namespace ColdWind.Core.GeneralControlWindow.Editor
             s_tabNames = s_tabs.Select(tab => tab.Name).ToArray();
         }
 
-        private void OnGUI()
-        {
-            GUILayoutHelper.DrawBetweenSpaces(GUILayoutHelper.SmallIndent, GUILayoutHelper.MediumIndent,
-                () => GUILayoutHelper.DrawInHorizontal(() =>
-                {
-                    _selectedTabIndex = GUILayout.Toolbar(_selectedTabIndex, s_tabNames);
-                    GUILayout.FlexibleSpace();
-                }));
-
-            if (_selectedTabIndex != _lastSelectedTabIndex)
-                s_tabs[_selectedTabIndex].Open();
-
-            s_tabs[_selectedTabIndex].Draw();
-            _lastSelectedTabIndex = _selectedTabIndex;
-        }
+        private void OnBeforeAssemblyReload() => s_window.Close();
     }
 }

@@ -49,26 +49,20 @@ namespace ColdWind.Core.GeneralControlWindow.Editor
             GUILayoutHelper.DrawInHorizontal(
                 () => GUILayoutHelper.DrawBetweenFlexibleSpaces(() =>
                 {
-                    GUILayoutHelper.DrawButton(GenerateButtonName,
-                        () => 
-                        {
-                            MainWindow.Exit();
-                            AddressableConstantsGenerator.Generate();
-                        },
+                    GUILayoutHelper.DrawButton(GenerateButtonName, AddressableConstantsGenerator.Generate,
                         width: GUILayoutHelper.StandardButtonWidth);
 
                     GUILayout.Space(GUILayoutHelper.LargeIndent);
 
-
                     GUILayoutHelper.DrawInVertical(() =>
                     {
                         GUILayoutHelper.DrawToggle(ref _isGenerateOnEnterPlayMode, OnEnterPlayModeToggleName,
-                            (value) => AddressableConstantsGenerator.SetIsGenerateOnEnterPlayMode(value));
+                            AddressableConstantsGenerator.SetIsGenerateOnEnterPlayMode);
 
                         GUILayout.Space(GUILayoutHelper.SmallIndent);
 
                         GUILayoutHelper.DrawToggle(ref _isGenerateOnBuild, OnBuildToggleName,
-                            (value) => AddressableConstantsGenerator.SetIsGenerateOnBuild(value));
+                            AddressableConstantsGenerator.SetIsGenerateOnBuild);
                     });
                 }));
 
