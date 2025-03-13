@@ -1,4 +1,3 @@
-using ColdWind.Core.ModularCompositeRoot.Internal;
 using System;
 using System.Collections.Generic;
 using UnityEngine;
@@ -30,7 +29,7 @@ namespace ColdWind.Core.GameObjectControl
             Func<GameObject, GameObject> creator = null,
             Action<T> constructor = null,
             bool isActivateObject = true)
-            where T : BaseMonoScript
+            where T : MonoBehaviour
         {
             T instance = CreateNew(prefab.gameObject, creator, null, false).GetComponent<T>();
 
@@ -54,7 +53,7 @@ namespace ColdWind.Core.GameObjectControl
             Func<GameObject, GameObject> creator = null,
             Action<T> constructor = null,
             bool isActivateObject = true)
-            where T : BaseMonoScript
+            where T : MonoBehaviour
         {
             return CreateNew(LoadPrefab<T>(prefabName), creator, constructor, isActivateObject);
         }
@@ -77,7 +76,7 @@ namespace ColdWind.Core.GameObjectControl
             InstantiationParameters instantiationParameters,
             Action<T> constructor = null,
             bool isActivateObject = true)
-            where T : BaseMonoScript
+            where T : MonoBehaviour
         {
             return CreateNew(
                 LoadPrefab<T>(prefabName),
