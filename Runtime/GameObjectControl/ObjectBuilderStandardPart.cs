@@ -92,11 +92,26 @@ namespace ColdWind.Core.GameObjectControl
 
         public static List<GameObject> CreateNewOnes(bool isActivateObjects, params string[] prefabNames)
         {
+            return CreateNewOnes(null, isActivateObjects, prefabNames);
+        }
+
+        public static List<GameObject> CreateNewOnes(
+            Func<GameObject, GameObject> creator, bool isActivateObjects, params string[] prefabNames)
+        {
+            return CreateNewOnes(creator, null, isActivateObjects, prefabNames);
+        }
+
+        public static List<GameObject> CreateNewOnes(
+            Func<GameObject, GameObject> creator,
+            Action<GameObject> constructor,
+            bool isActivateObjects,
+            params string[] prefabNames)
+        {
             List<GameObject> instances = new();
 
             foreach (var prefabName in prefabNames)
             {
-                instances.Add(CreateNew(prefabName, isActivateObject: isActivateObjects));
+                instances.Add(CreateNew(prefabName, creator, constructor, isActivateObjects));
             }
 
             return instances;

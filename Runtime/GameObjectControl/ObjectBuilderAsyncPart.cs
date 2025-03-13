@@ -94,11 +94,26 @@ namespace ColdWind.Core.GameObjectControl
 
         public static async Task<List<GameObject>> CreateNewOnesAsync(bool isActivateObjects, params string[] prefabNames)
         {
+            return await CreateNewOnesAsync(null, isActivateObjects, prefabNames);
+        }
+
+        public static async Task<List<GameObject>> CreateNewOnesAsync(
+            Func<string, Task<GameObject>> creator, bool isActivateObjects, params string[] prefabNames)
+        {
+            return await CreateNewOnesAsync(creator, null, isActivateObjects, prefabNames);
+        }
+
+        public static async Task<List<GameObject>> CreateNewOnesAsync(
+            Func<string, Task<GameObject>> creator,
+            Action<GameObject> constructor,
+            bool isActivateObjects,
+            params string[] prefabNames)
+        {
             List<GameObject> instances = new();
 
             foreach (var prefabName in prefabNames)
             {
-                instances.Add(await CreateNewAsync(prefabName, isActivateObject: isActivateObjects));
+                instances.Add(await CreateNewAsync(prefabName, creator, constructor, isActivateObjects));
             }
 
             return instances;
