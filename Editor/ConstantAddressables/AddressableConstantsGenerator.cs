@@ -9,7 +9,6 @@ using UnityEditor.Build.Reporting;
 
 namespace ColdWind.Core.ConstantAddressables.Editor
 {
-    [InitializeOnLoad]
     public class AddressableConstantsGenerator : IPreprocessBuildWithReport
     {
         private const string SettingsFileName = nameof(ConstantAddressablesSettings);
