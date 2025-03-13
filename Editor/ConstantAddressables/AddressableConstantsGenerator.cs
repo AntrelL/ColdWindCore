@@ -58,7 +58,9 @@ namespace ColdWind.Core.ConstantAddressables.Editor
 
             if (settings == null)
             {
-                AdvancedDebug.LogError<AddressableConstantsGenerator>("AddressableAssetSettings not found");
+                AdvancedDebug.LogError<AddressableConstantsGenerator>(
+                    "AddressableAssetSettings not found. Please generate addressables settings");
+
                 return;
             }
 
