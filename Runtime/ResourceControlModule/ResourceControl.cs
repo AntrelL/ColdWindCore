@@ -8,36 +8,57 @@ namespace ColdWind.Core.ResourceControlModule
 {
     public class ResourceControl
     {
+        private const bool StandardAutoSkip = false;
+
         private static Dictionary<string, AsyncOperationHandle<IList<GameObject>>> s_loadedResources = new();
 
         public static List<GameObject> LoadAssets(params string[] labels)
         {
+            return LoadAssets(StandardAutoSkip, labels);
+        }
+
+        public static List<GameObject> LoadAssets(bool autoSkipIfLoaded, params string[] labels)
+        {
             List<GameObject> loadedObjects = new();
             
             foreach (var label in labels)
-                loadedObjects.AddRange(LoadAssets(label, true).Result);
+                loadedObjects.AddRange(LoadAssets(label, true, autoSkipIfLoaded).Result);
             
             return loadedObjects;
         }
 
         public static List<AsyncOperationHandle<IList<GameObject>>> LoadAssetsAsync(params string[] labels)
         {
+            return LoadAssetsAsync(StandardAutoSkip, labels);
+        }
+
+        public static List<AsyncOperationHandle<IList<GameObject>>> LoadAssetsAsync(bool autoSkipIfLoaded, params string[] labels)
+        {
             List<AsyncOperationHandle<IList<GameObject>>> handles = new();
 
             foreach (var label in labels)
-                handles.Add(LoadAssets(label, false));
+                handles.Add(LoadAssets(label, false, autoSkipIfLoaded));
             
             return handles;
         }
 
         public static void ReleaseAssets(params string[] labels)
         {
+            ReleaseAssets(StandardAutoSkip, labels);
+        }
+
+        public static void ReleaseAssets(bool autoSkipIfNotLoaded, params string[] labels)
+        {
             foreach (var label in labels)
             {
-                if (s_loadedResources.ContainsKey(label) == false)
+                if (IsAssetsLoaded(label) == false)
                 {
-                    AdvancedDebug.LogError<ResourceControl>(
-                        $"Resources with label: {label} cannot be freed because they were not loaded", isModuleName: false);
+                    if (autoSkipIfNotLoaded == false)
+                    {
+                        AdvancedDebug.LogError<ResourceControl>(
+                            $"Resources with label: {label} cannot be freed because they were not loaded",
+                            isModuleName: false);
+                    }
 
                     return;
                 }
@@ -47,12 +68,27 @@ namespace ColdWind.Core.ResourceControlModule
             }
         }
 
-        private static AsyncOperationHandle<IList<GameObject>> LoadAssets(string label, bool waitForCompletion)
+        public static bool IsAssetsLoaded(params string[] labels)
         {
-            if (s_loadedResources.ContainsKey(label))
+            foreach (var label in labels)
             {
-                AdvancedDebug.LogError<ResourceControl>(
-                    $"Resources with label: {label} have already been loaded", isModuleName: false);
+                if (s_loadedResources.ContainsKey(label) == false)
+                    return false;
+            }
+
+            return true;
+        }
+
+        private static AsyncOperationHandle<IList<GameObject>> LoadAssets(
+            string label, bool waitForCompletion, bool autoSkipIfLoaded)
+        {
+            if (IsAssetsLoaded(label))
+            {
+                if (autoSkipIfLoaded == false)
+                {
+                    AdvancedDebug.LogError<ResourceControl>(
+                        $"Resources with label: {label} have already been loaded", isModuleName: false);
+                }
 
                 return s_loadedResources[label];
             }
