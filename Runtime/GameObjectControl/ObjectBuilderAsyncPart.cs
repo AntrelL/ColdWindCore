@@ -18,6 +18,8 @@ namespace ColdWind.Core.GameObjectControl
             instance.SetActive(isActivateObject);
             constructor?.Invoke(instance);
 
+            instance.name = RemoveCloneLabel(instance.name);
+
             return instance;
         }
 
@@ -43,6 +45,8 @@ namespace ColdWind.Core.GameObjectControl
             GameObject instance = await (creator?.Invoke(prefabName) ?? InstantiateAsync(prefabName));
             instance.SetActive(isActivateObject);
             constructor?.Invoke(instance);
+
+            instance.name = RemoveCloneLabel(instance.name);
 
             return instance;
         }

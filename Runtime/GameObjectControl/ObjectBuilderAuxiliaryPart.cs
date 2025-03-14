@@ -7,6 +7,8 @@ namespace ColdWind.Core.GameObjectControl
 {
     public static partial class ObjectBuilder
     {
+        private const string CloneLabel = "(Clone)";
+
         private static GameObject Instantiate(
             GameObject prefab, InstantiationParameters parameters)
         {
@@ -37,6 +39,11 @@ namespace ColdWind.Core.GameObjectControl
         private static GameObject LoadPrefab(string prefabName)
         {
             return Addressables.LoadAssetAsync<GameObject>(prefabName).WaitForCompletion();
+        }
+
+        private static string RemoveCloneLabel(string text)
+        {
+            return text.Remove(CloneLabel);
         }
     }
 }

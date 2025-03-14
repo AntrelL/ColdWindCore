@@ -21,6 +21,8 @@ namespace ColdWind.Core.GameObjectControl
             constructor?.Invoke(instance);
             instance.SetActive(isActivateObject);
 
+            instance.name = RemoveCloneLabel(instance.name);
+
             return instance;
         }
 
