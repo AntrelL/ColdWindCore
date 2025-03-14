@@ -4,14 +4,17 @@ using UnityEngine;
 
 namespace ColdWind.Core.UniversalUI
 {
-    [RequireComponent(typeof(CanvasGroup))]
-    public class Screen : MonoScript<bool>, IReadOnlyScreen
+    [RequireComponent(typeof(Canvas), typeof(CanvasGroup))]
+    public class Screen : MonoScript<Camera, bool>, IReadOnlyScreen
     {
         private CanvasGroup _canvasGroup;
 
-        protected override void Constructor(bool displayed)
+        protected override void Constructor(Camera camera, bool displayed)
         {
+            Canvas = GetComponent<Canvas>();
             _canvasGroup = GetComponent<CanvasGroup>();
+
+            Canvas.worldCamera = camera;
 
             if (displayed)
                 Show(true);
@@ -20,6 +23,8 @@ namespace ColdWind.Core.UniversalUI
         }
 
         public bool Displayed { get; private set; }
+
+        public Canvas Canvas { get; private set; }
 
         public void Show(bool force = false)
         {
