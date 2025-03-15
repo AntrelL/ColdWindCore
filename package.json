@@ -1,0 +1,13 @@
+{
+  "name": "com.coldwind.core",
+  "version": "2.0.0",
+  "unity": "2022.3",
+  "displayName": "Cold Wind Core",
+  "description": "This is a framework that radically changes the way you interact with Unity, implementing the idea of ​​​​absolutely clean development.",
+  "license": "MIT",
+  "author": "AntrelL",
+  "unityRelease": "7f1",
+  "dependencies": {
+    "com.unity.addressables": "1.21.21"
+  }
+}
